@@ -218,20 +218,30 @@ def create_database():
     CREATE TABLE IF NOT EXISTS recommendations (
     Recommendation_ID INTEGER PRIMARY KEY AUTOINCREMENT,
     Customer_ID TEXT,
-    Product_ID TEXT,
-    recommended_ids TEXT
+    recommended_ids TEXT,
+    Customer_Segment TEXT
     )
     ''')
 
 
-    # ✅ Update customer_embeddings table to use JSON text
+    # # ✅ Update customer_embeddings table to use JSON text
+    # cursor.execute('''
+    # CREATE TABLE IF NOT EXISTS customer_embeddings (
+    #     customer_id TEXT PRIMARY KEY,
+    #     embedding TEXT,
+    #     FOREIGN KEY (customer_id) REFERENCES customers(Customer_ID)
+    # )
+    # ''')
+    # ✅ Update customer_embeddings table to use JSON text format for embedding
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS customer_embeddings (
         customer_id TEXT PRIMARY KEY,
-        embedding TEXT,
-        FOREIGN KEY (customer_id) REFERENCES customers(Customer_ID)
+        embedding TEXT NOT NULL,             -- embedding stored as JSON string
+        segment TEXT,                        -- add segment info
+        FOREIGN KEY (customer_id) REFERENCES customers(Customer_ID) ON DELETE CASCADE
     )
     ''')
+
 
     conn.commit()
     conn.close()
