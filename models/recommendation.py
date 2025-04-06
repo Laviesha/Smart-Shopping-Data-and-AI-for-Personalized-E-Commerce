@@ -16,43 +16,37 @@ def get_embedding(text):
 
 # Connect to SQLite database
 conn = sqlite3.connect("../database/ecommerce.db")
-
 cursor = conn.cursor()
 
-# Get user input
-query = input("\nEnter a product search: ").strip()
+# 🚨 Better to use real product search keywords, not just IDs
+query = input("\nEnter a product search (e.g., 'wireless headphones'): ").strip()
 
 # Generate embedding for search query
 query_embedding = get_embedding(query)
 
-# Retrieve stored product embeddings from the database
-cursor.execute("SELECT product_id, name, description, embedding FROM product_embeddings")
+# ✅ Match your table schema
+cursor.execute("SELECT product_id, category, subcategory, brand, embedding FROM product_embeddings")
 products = cursor.fetchall()
 
 # Compute similarity scores
 similarities = []
-for product_id, name, desc, embedding in products:
-    # product_embedding = pickle.loads(embedding)  # Convert stored embedding from BLOB
-    # product_embedding = pickle.loads(embedding.encode('latin1'))  # Convert stored embedding from str to bytes
-    # product_embedding = json.loads(embedding)  # Convert stored JSON string to Python list
-    # Instead of pickle.loads(), use json.loads()
-    # Ensure embedding is a string before json.loads()
+for product_id, category, subcategory, brand, embedding in products:
     if isinstance(embedding, bytes):
-        embedding = embedding.decode('utf-8')  # Convert bytes to string if needed
+        embedding = embedding.decode('utf-8')
 
-    product_embedding = json.loads(embedding)  # ✅ Correct approach
-
-
-
-
-
+    product_embedding = json.loads(embedding)
     similarity = cosine_similarity(query_embedding, product_embedding)
-    similarities.append((product_id, name, desc, similarity))
 
-# Sort by similarity & display top 5 results
-similarities.sort(key=lambda x: x[3], reverse=True)
+    # ✅ Fallback for missing subcategory
+    product_title = f"{brand} - {category} > {subcategory or 'General'}"
+
+    similarities.append((product_id, product_title, similarity))
+
+# Sort and show top 5 recommendations
+similarities.sort(key=lambda x: x[2], reverse=True)
+
 print("\n🔍 Top Recommended Products:")
-for product_id, name, desc, sim in similarities[:5]:
-    print(f"📌 {name} ({product_id}) - {desc} [Similarity: {sim:.3f}]")
+for product_id, title, sim in similarities[:5]:
+    print(f"📌 {title} ({product_id}) [Similarity: {sim:.3f}]")
 
 conn.close()

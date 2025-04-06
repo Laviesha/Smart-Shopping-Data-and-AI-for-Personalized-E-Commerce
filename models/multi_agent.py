@@ -102,7 +102,7 @@ def get_recommendations(customer_id):
 
 # Run the recommendation pipeline for a test customer
 if __name__ == '__main__':
-    test_customer_id = 'C10001'  # Change this to test other customers
+    test_customer_id = 'C1002'  # Change this to test other customers
     print(f"🚀 Running recommendation pipeline for customer {test_customer_id}")
     start_time = time.time()
 
