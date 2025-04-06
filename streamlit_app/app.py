@@ -84,7 +84,7 @@ from multi_agent import get_customer_segment
 
 
 # DB path
-DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database', 'demo_ecommerce.db'))
+DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database', 'ecommerce.db'))
 
 # Fetch product info for display
 def fetch_product_details(product_ids):

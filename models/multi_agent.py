@@ -2,8 +2,10 @@ import sqlite3
 import json
 from ast import literal_eval
 import time
+import os
 
-DB_PATH = r'C:\Users\m5cd2\Music\Smart-Shopping-Data-and-AI-for-Personalized-E-Commerce\database\ecommerce.db'
+# DB_PATH = r'C:\Users\m5cd2\Music\Smart-Shopping-Data-and-AI-for-Personalized-E-Commerce\database\ecommerce.db'
+DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database', 'ecommerce.db'))
 
 # Get customer's segment from database
 def get_customer_segment(customer_id):
@@ -100,7 +102,7 @@ def get_recommendations(customer_id):
 
 # Run the recommendation pipeline for a test customer
 if __name__ == '__main__':
-    test_customer_id = 'C1000'  # Change this to test other customers
+    test_customer_id = 'C10001'  # Change this to test other customers
     print(f"🚀 Running recommendation pipeline for customer {test_customer_id}")
     start_time = time.time()
 
