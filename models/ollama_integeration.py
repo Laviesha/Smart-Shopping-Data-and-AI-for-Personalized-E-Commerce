@@ -1,29 +1,3 @@
-# import requests
-# import json
-
-# OLLAMA_URL = "http://127.0.0.1:11434/api/embeddings"
-# MODEL_NAME = "all-minilm"
-
-# def get_embedding(text):
-#     payload = {
-#         "model": MODEL_NAME,
-#         "prompt": text
-#     }
-#     response = requests.post(OLLAMA_URL, json=payload)
-    
-#     if response.status_code == 200:
-#         return response.json().get("embedding", [])
-#     else:
-#         print(f"Error: {response.status_code}, {response.text}")
-#         return None
-
-# if __name__ == "__main__":
-#     text = "Hello, how are you?"
-#     embedding = get_embedding(text)
-    
-#     if embedding:
-#         print(f"Embedding vector (length {len(embedding)}): {embedding[:5]}...")  # Display first 5 values
-
 import ollama
 import sqlite3
 import json
