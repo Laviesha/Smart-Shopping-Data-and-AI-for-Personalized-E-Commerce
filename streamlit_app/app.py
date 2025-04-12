@@ -78,3 +78,5 @@ if st.button("Get Recommendations"):
                     🎯 **Recommendation Score:** {product['recommendation_score']:.2f}
                     ---
                     """)
+
+                    #minor change 
