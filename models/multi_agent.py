@@ -5,7 +5,7 @@ import time
 import os
 
 # DB_PATH = r'C:\Users\m5cd2\Music\Smart-Shopping-Data-and-AI-for-Personalized-E-Commerce\database\ecommerce.db'
-DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database', 'ecommerce.db'))
+DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database', 'demo_ecommerce.db'))
 
 # Get customer's segment from database
 def get_customer_segment(customer_id):
